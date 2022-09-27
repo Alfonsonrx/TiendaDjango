@@ -78,9 +78,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'djongo',
         'NAME': 'bddtienda',
-        # 'ENFORCE_SCHEMA': False,
         'CLIENT': {
-            'host': 'mongodb+srv://<username>:<password>@<atlas cluster>/<myFirstDatabase>?retryWrites=true&w=majority'
+            'host': 'mongodb+srv://<username>:<password>@<atlas cluster>/<myFirstDatabase>?retryWrites=true&w=majority',
         }
     }
 }
@@ -120,7 +119,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
+
 STATIC_URL = 'static/'
+
+STATICFILES_DIRS = [
+    "catalogo/static/",
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
