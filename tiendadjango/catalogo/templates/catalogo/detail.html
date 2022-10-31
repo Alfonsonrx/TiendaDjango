@@ -1,0 +1,85 @@
+{% extends "./header.html" %}
+
+{% block title %}
+    {{ block.super }}
+    {{ producto.name }}
+{% endblock %}
+
+{% block content %}
+    {% load static %}
+
+    <div class="container p-3">
+        <div class="row px-5 my-4">
+            <div class="col-7">
+                <div class="row">
+                    <div class="col-7">
+                        <h1>{{ producto.name }}</h1>
+                    </div>
+                    <div class="col-3">
+                        <h6>{{ producto.serial_num }}</h6>
+                    </div>
+                </div>
+                <h6>
+                    <img width="2.5%" height="2.5%" src="{% static 'catalogo/star.png' %}" style="padding-bottom: 0.5%;"> 
+                    {{ producto.call_rating }}
+                </h6>
+                <h3>
+                    ${{ producto.price }}
+                </h3>
+                <div class="row my-4">
+                    <div class="col-8">
+                        <p>{{ producto.description }}</p>
+                    </div>
+                </div>
+                <div>
+                    
+                </div>
+            </div>
+            <div class="col-5">
+                <img width="100%" height="400" src="{{ producto.img_url }}">
+            </div>
+        </div>
+        
+        <div class="row px-5 my-2">
+            <form id="comentario">
+                {% csrf_token %}
+                <div class="row my-2">
+                    <div class="py-2">
+                        <label for="run">Comentario:</label>
+                        <textarea type="text" name="comment" id="comment" class="form-control"></textarea>
+                    </div>
+                    <div class="col-md-6 offset-md-5">
+                        <input type="submit" name="action" id="action" class="btn btn-success btn-comentar" value="Comentar">
+                    </div>
+                </div>
+            </form>
+            {% for user, com in producto.get_comments %}
+            <div class="card container comment py-4 my-2">
+                <div class="row g-0">
+                    <div class="col-sm-6 col-md-8">
+                        <h4>{{ user }}</h4>
+                    </div>
+                    <div class="col-6 col-md-4 text-end">
+                        <h4> <img width="5%" height="5%" src="{% static 'catalogo/star.png' %}" style="padding-bottom: 2%;"> {{ com.prod_rating }}</h4>
+                    </div>
+                </div>
+                <hr>
+                    <p>{{ com.text_comment }}</p>
+                    <small class="text-muted">{{ com.pub_date.date }}</small>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock content %}
+
+{% block footer %}
+    {{ block.super }}
+    <script>
+        var url_comentar = "{% url 'catalogo:comentar' %}";
+        var csrf_token = "{{ csrf_token }}";
+        var num_serie = "{{ producto.serial_num }}";
+        var mail = "damian.contreras036@gmail.com";
+    </script>
+    <script src="{% static 'js/detail.js' %}"></script>
+{% endblock footer %}

@@ -70,8 +70,8 @@
                             <p class="card-text">{{ prod.description }}</p>
                             <div class="d-flex justify-content-between">
                                 <div class="btn-group">
-                                <button type="button" class="btn btn-sm btn-outline-success" disabled>{{ prod.price }}</button>
-                                <button type="button" class="btn btn-sm btn-outline-primary">Details</button>
+                                <button type="button" class="btn btn-sm btn-outline-success" disabled>${{ prod.price }}</button>
+                                <a href="{% url 'catalogo:detail' prod.id %}" type="button" class="btn btn-sm btn-outline-primary">Details</a>
                                 </div>
                                 <small class="text-muted">{{ prod.pub_date.date }}</small>
                             </div>
